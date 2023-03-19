@@ -1,0 +1,15 @@
+extends layout.pug
+
+block content
+    h1 Login
+    form(action='/login', method='post')
+        input(type='text', placeholder='Username', name='username')
+        br
+        input(type='password', placeholder='Password' name='password')
+        br
+        button(type='submit') Login
+        if message
+            p #{message}
+
+    p
+        a(href='/signup') No account?  Sign up!

@@ -9,27 +9,27 @@ class ContactDB {
     async initialize() {
         await this.db.connect();
 
-        await this.db.schema('Contact', [
-            { name: 'ID', type: 'INTEGER' },
-            { name: 'First Name', type: 'TEXT' },
-            { name: 'Last Name', type: 'TEXT' },
-            { name: 'Phone Number', type: 'TEXT' },
-            { name: 'Email Address', type: 'TEXT' },
-            { name: 'Street', type: 'TEXT' },
-            { name: 'City', type: 'TEXT' },
-            { name: 'State', type: 'TEXT' },
-            { name: 'Zip', type: 'TEXT' },
-            { name: 'Country', type: 'TEXT' },
-            { name: 'Contact_By_Email', type: 'INTEGER' },
-            { name: 'Contact_By_Phone', type: 'INTEGER' },
+        await this.db.schema('Contacts', [
+            { name: 'id', type: 'INTEGER' },
+            { name: 'fname', type: 'TEXT' },
+            { name: 'lname', type: 'TEXT' },
+            { name: 'phone', type: 'TEXT' },
+            { name: 'email', type: 'TEXT' },
+            { name: 'street', type: 'TEXT' },
+            { name: 'city', type: 'TEXT' },
+            { name: 'state', type: 'TEXT' },
+            { name: 'zip', type: 'TEXT' },
+            { name: 'country', type: 'TEXT' },
+            { name: 'contact_email', type: 'INTEGER' },
+            { name: 'contact_phone', type: 'INTEGER' },
         ], 'id');
 
         await this.db.schema('Users', [
-            { name: 'ID', type: 'INTEGER' },
-            { name: 'First Name', type: 'TEXT' },
-            { name: 'Last Name', type: 'TEXT' },
-            { name: 'Username', type: 'TEXT' },
-            { name: 'Password', type: 'TEXT' },
+            { name: 'id', type: 'INTEGER' },
+            { name: 'fname', type: 'TEXT' },
+            { name: 'lname', type: 'TEXT' },
+            { name: 'username', type: 'TEXT' },
+            { name: 'password', type: 'TEXT' },
         ], 'id');
         /*
         const incomplete = await this.db.read('Contact', [{ column: 'complete', value: false }]);
@@ -52,9 +52,11 @@ class ContactDB {
         return id;
     }
 
-    async createUser(email, password) {
+    async createUser(username, password, fname, lname) {
         const id = await this.db.create('Users', [
-            { column: 'email', value: email },
+            { column: 'fname', value: fname },
+            { column: 'lname', value: lname },
+            { column: 'username', value: username },
             { column: 'password', value: password },
         ])
         return id;
@@ -68,8 +70,8 @@ class ContactDB {
         }
     }
 
-    async findUserByEmail(email) {
-        const us = await this.db.read('Users', [{ column: 'email', value: email }]);
+    async findUserByUsername(username) {
+        const us = await this.db.read('Users', [{ column: 'username', value: username }]);
         if (us.length > 0) return us[0];
         else {
             return undefined;
@@ -106,9 +108,9 @@ class ContactDB {
         );
     }
 
-    async findCompleteGames(userId) {
-        const games = await this.db.read('Game', [{ column: 'complete', value: true }, { column: 'userId', value: userId }]);
-        return games;
+    async findContacts() {
+        const c = await this.db.read('Contacts', []);
+        return c;
     }
 
     async findGuesses(gameId) {

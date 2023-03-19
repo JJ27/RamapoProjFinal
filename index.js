@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 
-const Database = require('contactwrap');
+const Database = require('./contactwrap');
 const db = new Database();
 db.initialize();
 
@@ -24,7 +24,6 @@ app.use(session({
     cookie: { secure: false }
 }))
 
-//TODO: Update below use to work with new User object
 app.use((req, res, next) => {
     if (req.session.user) {
         res.locals.user = {
@@ -35,8 +34,11 @@ app.use((req, res, next) => {
     next()
 })
 
+
 app.set('view engine', 'pug');
 //TODO: Update below express uses to work with the new routes
+app.use('/', require('./routes/accounts'));
+app.use('/', require('./routes/main'));
 /*
 app.use('/', require('./routes/accounts'));
 app.use('/', require('./routes/play'));
@@ -44,5 +46,5 @@ app.use('/history', require('./routes/history'));
  */
 
 app.listen(8080, () => {
-    console.log('Server is running  on port 8080')
+    console.log('Server running on port 8080')
 });
