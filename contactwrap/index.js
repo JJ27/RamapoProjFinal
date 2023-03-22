@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Database = require('dbcmps369');
+const bcrypt = require("bcryptjs");
 
 class ContactDB {
     constructor() {
@@ -22,6 +23,7 @@ class ContactDB {
             { name: 'country', type: 'TEXT' },
             { name: 'contact_email', type: 'INTEGER' },
             { name: 'contact_phone', type: 'INTEGER' },
+            { name: 'contact_mail', type: 'INTEGER' },
         ], 'id');
 
         await this.db.schema('Users', [
@@ -31,23 +33,31 @@ class ContactDB {
             { name: 'username', type: 'TEXT' },
             { name: 'password', type: 'TEXT' },
         ], 'id');
-        /*
-        const incomplete = await this.db.read('Contact', [{ column: 'complete', value: false }]);
-        for (const g of incomplete) {
-            await this.db.delete('Guess', [{ column: 'gameId', value: g.id }]);
-            await this.db.delete('Game', [{ column: 'id', value: g.id }]);
-        }*/
+        const us = await this.db.read('Users', [{ column: 'username', value: 'cmps369' }]);
+        if(us.length === 0) {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync('rcnj', salt);
+            this.createUser('cmps369', hash, 'Scott', 'Frees');
+        }
     }
 
     //TODO: Update below functions to work with the new schema
 
-    async createGame(secret, userId) {
-        const id = await this.db.create('Game', [
-            { column: 'secret', value: secret },
-            { column: 'time', value: new Date() },
-            { column: 'complete', value: false },
-            { column: 'num_guesses', value: 0 },
-            { column: 'userId', value: userId }
+    //add createContact function
+    async createContact(fname, lname, phone, email, street, city, state, zip, country, contact_email, contact_phone, contact_mail) {
+        const id = await this.db.create('Contacts', [
+            { column: 'fname', value: fname },
+            { column: 'lname', value: lname },
+            { column: 'phone', value: phone },
+            { column: 'email', value: email },
+            { column: 'street', value: street },
+            { column: 'city', value: city },
+            { column: 'state', value: state },
+            { column: 'zip', value: zip },
+            { column: 'country', value: country },
+            { column: 'contact_email', value: contact_email },
+            { column: 'contact_phone', value: contact_phone },
+            { column: 'contact_mail', value: contact_mail },
         ])
         return id;
     }
@@ -84,6 +94,40 @@ class ContactDB {
         else {
             return undefined;
         }
+    }
+
+    async findContact(id) {
+        const c = await this.db.read('Contacts', [{ column: 'id', value: id }]);
+        if (c.length > 0) return c[0];
+        else {
+            return undefined;
+        }
+    }
+
+    //deleteContact function
+    async deleteContact(id) {
+        await this.db.delete('Contacts', [{ column: 'id', value: id }]);
+    }
+
+    //updateContact function
+    async updateContact(id, fname, lname, phone, email, street, city, state, zip, country, contact_email, contact_phone, contact_mail) {
+        await this.db.update('Contacts',
+            [
+                { column: 'fname', value: fname },
+                { column: 'lname', value: lname },
+                { column: 'phone', value: phone },
+                { column: 'email', value: email },
+                { column: 'street', value: street },
+                { column: 'city', value: city },
+                { column: 'state', value: state },
+                { column: 'zip', value: zip },
+                { column: 'country', value: country },
+                { column: 'contact_email', value: contact_email },
+                { column: 'contact_phone', value: contact_phone },
+                { column: 'contact_mail', value: contact_mail },
+            ],
+            [{ column: 'id', value: id }]
+        );
     }
 
     async recordGuess(game, guess) {

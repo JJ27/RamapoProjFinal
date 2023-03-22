@@ -20,8 +20,8 @@ html
         if !hide_login
             if user
                 span
-                    span Logged in: #{user.email}
-                    a(href='/logout') Logout
+                    span Logged in: #{user.fname} #{user.lname}
+                    a(href='/logout')  Logout
             else
                 a(href='/login') Login
         block content

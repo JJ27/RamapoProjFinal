@@ -7,6 +7,7 @@ db.initialize();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.locals.pretty = true;
 
 // Gets call on every request, before the routes.
 // We can inject dependencies into the req (or res)
@@ -28,7 +29,9 @@ app.use((req, res, next) => {
     if (req.session.user) {
         res.locals.user = {
             id: req.session.user.id,
-            email: req.session.user.email
+            email: req.session.user.email,
+            fname: req.session.user.fname,
+            lname: req.session.user.lname
         }
     }
     next()
