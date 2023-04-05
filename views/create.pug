@@ -1,54 +1,68 @@
 extends layout.pug
 
 block content
-    h1 Create Contact
-    form(action='/create', method='post')
-        fieldset
-            legend Contact Information
-            p
-                label(for='fname') First Name:
-                input(type='text', placeholder='First Name', name='fname')
-            p
-                label(for='lname') Last Name:
-                input(type='text', placeholder='Last Name', name='lname')
-            p
-                label(for='phone') Phone:
-                input(type='text', placeholder='Phone', name='phone')
-            p
-                label(for='email') Email:
-                input(type='email', placeholder='Email', name='email')
-        br
-        fieldset
-            legend Address
-            p
-                label(for='street') Street:
-                input(type='text', placeholder='Street', name='street')
-            p
-                label(for='city') City:
-                input(type='text', placeholder='City', name='city')
-            p
-                label(for='state') State:
-                input(type='text', placeholder='State', name='state')
-            p
-                label(for='zip') Zip:
-                input(type='text', placeholder='Zip', name='zip')
-            p
-                label(for='country') Country:
-                input(type='text', placeholder='Country', name='country')
-        br
-        fieldset
-            legend Contact Preferences
-            p
-                input(type='checkbox', name='contact_by_phone')
-                label(for='contact_by_phone') Contact by Phone
-            p
-                input(type='checkbox', name='contact_by_email')
-                label(for='contact_by_email') Contact by Email
-            p
-                input(type='checkbox', name='contact_by_mail')
-                label(for='contact_by_mail') Contact by Mail
-        br
-        button(type='submit') Create Contact
-        a(href="/") Cancel
-        if message
-            p #{message}
+    .container.mt-3
+        div.row
+            h1.col Create Contact
+            div.col.d-flex.justify-content-end
+                div.p-2
+                    if !hide_login
+                        if user
+                            span
+                                span(style="margin-right: 10px") Logged in: #{user.fname} #{user.lname}
+                                a(href='/logout')
+                                    button(type='button').btn.btn-primary Logout
+                        else
+                            a.text-right(href='/login')
+                                button(type='button').btn.btn-primary Login
+                div.p-2
+                    a(href='/')
+                        button(type='button').btn.btn-primary Home
+        form(action='/create', method='post')
+            fieldset.sb
+                legend.sb Contact Information
+                p.mb-3.mt-3
+                    label.form-label(for='fname') First Name:
+                    input.form-control(type='text', placeholder='First Name', name='fname')
+                p.mb-3.mt-3
+                    label.form-label(for='lname') Last Name:
+                    input.form-control(type='text', placeholder='Last Name', name='lname')
+                p.mb-3.mt-3
+                    label.form-label(for='phone') Phone:
+                    input.form-control(type='text', placeholder='Phone', name='phone')
+                p.mb-3.mt-3
+                    label.form-label(for='email') Email:
+                    input.form-control(type='email', placeholder='Email', name='email')
+            fieldset.sb
+                legend.sb Address
+                p.mb-3.mt-3
+                    label.form-label(for='street') Street:
+                    input.form-control(type='text', placeholder='Street', name='street')
+                p.mb-3.mt-3
+                    label.form-label(for='city') City:
+                    input.form-control(type='text', placeholder='City', name='city')
+                p.mb-3.mt-3
+                    label.form-label(for='state') State:
+                    input.form-control(type='text', placeholder='State', name='state')
+                p.mb-3.mt-3
+                    label.form-label(for='zip') Zip:
+                    input.form-control(type='text', placeholder='Zip', name='zip')
+                p.mb-3.mt-3
+                    label.form-label(for='country') Country:
+                    input.form-control(type='text', placeholder='Country', name='country')
+            fieldset.sb
+                legend.sb Contact Preferences
+                p.mb-3.mt-3.form-check
+                    input.form-check-input(type='checkbox', name='contact_by_phone')
+                    label.form-check-label(for='contact_by_phone') Contact by Phone
+                p.mb-3.mt-3.form-check
+                    input.form-check-input(type='checkbox', name='contact_by_email')
+                    label.form-check-label(for='contact_by_email') Contact by Email
+                p.mb-3.mt-3.form-check
+                    input.form-check-input(type='checkbox', name='contact_by_mail')
+                    label.form-check-label(for='contact_by_mail') Contact by Mail
+            button(type='submit').btn.btn-primary Create Contact
+            a(href="/")
+                button.btn.btn-danger(type='button') Cancel
+            if message
+                p #{message}

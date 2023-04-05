@@ -1,44 +1,61 @@
 extends layout.pug
 
 block content
-    nav
-        h1 Contact List
-        a(href="/create") Create a new contact
-        .container
-            div.table-responsive
-                table.table
-                    thead
-                        tr
-                            th Name
-                            th Phone
-                            th Email
-                            th Address
-                            th Contact
-                    tbody
-                        each contact in contacts
+    .container.mt-3
+        div.row
+            h1.col Contact List
+            div.col.d-flex.justify-content-end
+                div.p-2
+                    if !hide_login
+                        if user
+                            span
+                                span(style="margin-right: 10px") Logged in: #{user.fname} #{user.lname}
+                                a(href='/logout')
+                                    button(type='button').btn.btn-primary Logout
+                        else
+                            a.text-right(href='/login')
+                                button(type='button').btn.btn-primary Login
+                div.p-2
+                    a(href='/')
+                        button(type='button').btn.btn-primary Home
+            .container
+                div
+                    table.table.table-striped.table-hover.table-responsive
+                        thead
                             tr
-                                td
-                                    a(href=contact.id) #{contact.fname} #{contact.lname}
-                                td #{contact.phone}
-                                td #{contact.email}
-                                td: span #{contact.street}
-                                    br
-                                    span #{contact.city} #{contact.state} #{contact.zip}
-                                td: form
-                                    if contact.contact_phone == 1
-                                        input(type="checkbox", name="Phone", value=contact.contact_phone, checked="true", disabled="true")
-                                    else
-                                        input(type="checkbox", name="Phone", value=contact.contact_phone, disabled="true")
-                                    label(for="Phone") Phone
-                                    br
-                                    if contact.contact_email == 1
-                                        input(type="checkbox", name="Email", value=contact.contact_email, checked="true", disabled="true")
-                                    else
-                                        input(type="checkbox", name="Email", value=contact.contact_email, disabled="true")
-                                    label(for="Email") Email
-                                    br
-                                    if contact.contact_mail == 1
-                                        input(type="checkbox", name="Mail", value=contact.contact_mail, checked="true", disabled="true")
-                                    else
-                                        input(type="checkbox", name="Mail", value=contact.contact_mail, disabled="true")
-                                    label(for="Mail") Mail
+                                th Name
+                                th Phone
+                                th Email
+                                th Address
+                                th Contact
+                        tbody
+                            each contact in contacts
+                                tr
+                                    td
+                                        a(href=contact.id) #{contact.fname} #{contact.lname}
+                                    td #{contact.phone}
+                                    td #{contact.email}
+                                    td: span #{contact.street}
+                                        br
+                                        span #{contact.city} #{contact.state} #{contact.zip}
+                                    td: form
+                                        if contact.contact_phone == 1
+                                            input(type="checkbox", name="Phone", value=contact.contact_phone, checked="true", disabled="true")
+                                        else
+                                            input(type="checkbox", name="Phone", value=contact.contact_phone, disabled="true")
+                                        label(for="Phone") Phone
+                                        br
+                                        if contact.contact_email == 1
+                                            input(type="checkbox", name="Email", value=contact.contact_email, checked="true", disabled="true")
+                                        else
+                                            input(type="checkbox", name="Email", value=contact.contact_email, disabled="true")
+                                        label(for="Email") Email
+                                        br
+                                        if contact.contact_mail == 1
+                                            input(type="checkbox", name="Mail", value=contact.contact_mail, checked="true", disabled="true")
+                                        else
+                                            input(type="checkbox", name="Mail", value=contact.contact_mail, disabled="true")
+                                        label(for="Mail") Mail
+                br
+                a(href='/create')
+                    button(type='button').btn.btn-success New Contact

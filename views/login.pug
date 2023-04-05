@@ -1,15 +1,35 @@
 extends layout.pug
 
 block content
-    h1 Login
-    form(action='/login', method='post')
-        input(type='text', placeholder='Username', name='username')
-        br
-        input(type='password', placeholder='Password' name='password')
-        br
-        button(type='submit') Login
-        if message
-            p #{message}
-
-    p
-        a(href='/signup') No account?  Sign up!
+    .container.mt-3.bg-light
+        div.row
+            h1.col Login
+            div.col.d-flex.justify-content-end
+                div.p-2
+                    if !hide_login
+                        if user
+                            span
+                                span(style="margin-right: 10px") Logged in: #{user.fname} #{user.lname}
+                                a(href='/logout')
+                                    button(type='button').btn.btn-primary Logout
+                        else
+                            a.text-right(href='/login')
+                                button(type='button').btn.btn-primary Login
+                div.p-2
+                    a(href='/')
+                        button(type='button').btn.btn-primary Home
+        form(action='/login', method='post')
+            p.mb-3.mt-3
+                label.form-label(for='username') Username
+                br
+                input.form-control(type='text', placeholder='Username', name='username')
+            p.mb-3.mt-3
+                label.form-label(for='password') Password
+                br
+                input.form-control(type='password', name='password', placeholder='Password')
+            p.mb-3.mt-3
+                button.btn.btn-primary(type='submit') Login
+                a(href='/signup')
+                    button.btn.btn-info(type='button') Signup Page
+            if message
+                p #{message}

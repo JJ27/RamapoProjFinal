@@ -1,63 +1,80 @@
 extends layout.pug
 
 block content
-    h1 Update Contact
-    form(action="../" + contact.id + "/edit", method='post')
-        fieldset
-            legend Contact Information
-            p
-                label(for='fname') First Name:
-                input(type='text', value=contact.fname, name='fname')
-            p
-                label(for='lname') Last Name:
-                input(type='text', value=contact.lname, name='lname')
-            p
-                label(for='phone') Phone:
-                input(type='text', value=contact.phone, name='phone')
-            p
-                label(for='email') Email:
-                input(type='email', value=contact.email, name='email')
-        br
-        fieldset
-            legend Address
-            p
-                label(for='street') Street:
-                input(type='text', value=contact.street, name='street')
-            p
-                label(for='city') City:
-                input(type='text', value=contact.city, name='city')
-            p
-                label(for='state') State:
-                input(type='text', value=contact.state, name='state')
-            p
-                label(for='zip') Zip:
-                input(type='text', value=contact.zip, name='zip')
-            p
-                label(for='country') Country:
-                input(type='text', value=contact.country, name='country')
-        br
-        fieldset
-            legend Contact Preferences
-            p
-                if contact.contact_phone == 1
-                    input(type='checkbox', name='contact_by_phone', checked='true')
-                else
-                    input(type='checkbox', name='contact_by_phone')
-                label(for='contact_by_phone') Contact by Phone
-            p
-                if contact.contact_email == 1
-                    input(type='checkbox', name='contact_by_email', checked='true')
-                else
-                    input(type='checkbox', name='contact_by_email')
-                label(for='contact_by_email') Contact by Email
-            p
-                if contact.contact_mail == 1
-                    input(type='checkbox', name='contact_by_mail', checked='true')
-                else
-                    input(type='checkbox', name='contact_by_mail')
-                label(for='contact_by_mail') Contact by Mail
-        br
-        button(type='submit') Update Contact
-        a(href="/") Cancel
-        if message
-            p #{message}
+    .container.mt-3
+        div.row
+            h1.col Update Contact
+            div.col.d-flex.justify-content-end
+                div.p-2
+                    if !hide_login
+                        if user
+                            span
+                                span(style="margin-right: 10px") Logged in: #{user.fname} #{user.lname}
+                                a(href='/logout')
+                                    button(type='button').btn.btn-primary Logout
+                        else
+                            a.text-right(href='/login')
+                                button(type='button').btn.btn-primary Login
+                div.p-2
+                    a(href='/')
+                        button(type='button').btn.btn-primary Home
+        form(action="../" + contact.id + "/edit", method='post')
+            fieldset.sb
+                legend.sb Contact Information
+                p.mb-3.mt-3
+                    label.form-label(for='fname') First Name:
+                    input.form-control(type='text', value=contact.fname, name='fname')
+                p.mb-3.mt-3
+                    label.form-label(for='lname') Last Name:
+                    input.form-control(type='text', value=contact.lname, name='lname')
+                p.mb-3.mt-3
+                    label.form-label(for='phone') Phone:
+                    input.form-control(type='text', value=contact.phone, name='phone')
+                p.mb-3.mt-3
+                    label.form-label(for='email') Email:
+                    input.form-control(type='email', value=contact.email, name='email')
+            br
+            fieldset.sb
+                legend.sb Address
+                p.mb-3.mt-3
+                    label.form-label(for='street') Street:
+                    input.form-control(type='text', value=contact.street, name='street')
+                p.mb-3.mt-3
+                    label.form-label(for='city') City:
+                    input.form-control(type='text', value=contact.city, name='city')
+                p.mb-3.mt-3
+                    label.form-label(for='state') State:
+                    input.form-control(type='text', value=contact.state, name='state')
+                p.mb-3.mt-3
+                    label.form-label(for='zip') Zip:
+                    input.form-control(type='text', value=contact.zip, name='zip')
+                p.mb-3.mt-3
+                    label.form-label(for='country') Country:
+                    input.form-control(type='text', value=contact.country, name='country')
+            br
+            fieldset.sb
+                legend.sb Contact Preferences
+                p.mb-3.mt-3.form-check
+                    if contact.contact_phone == 1
+                        input.form-check-input(type='checkbox', name='contact_by_phone', checked='true')
+                    else
+                        input.form-check-input(type='checkbox', name='contact_by_phone')
+                    label.form-check-label(for='contact_by_phone') Contact by Phone
+                p.mb-3.mt-3.form-check
+                    if contact.contact_email == 1
+                        input.form-check-input(type='checkbox', name='contact_by_email', checked='true')
+                    else
+                        input.form-check-input(type='checkbox', name='contact_by_email')
+                    label.form-check-label(for='contact_by_email') Contact by Email
+                p.mb-3.mt-3.form-check
+                    if contact.contact_mail == 1
+                        input.form-check-input(type='checkbox', name='contact_by_mail', checked='true')
+                    else
+                        input.form-check-input(type='checkbox', name='contact_by_mail')
+                    label.form-check-label(for='contact_by_mail') Contact by Mail
+            br
+            button(type='submit').btn.btn-primary Update Contact
+            a(href="/")
+                button.btn.btn-danger(type='button') Cancel
+            if message
+                p #{message}

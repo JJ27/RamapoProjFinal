@@ -1,8 +1,23 @@
 extends layout.pug
 
 block content
-    h1 Signup
     .container.mt-3.bg-light
+        div.row
+            h1.col Sign Up
+            div.col.d-flex.justify-content-end
+                div.p-2
+                    if !hide_login
+                        if user
+                            span
+                                span(style="margin-right: 10px") Logged in: #{user.fname} #{user.lname}
+                                a(href='/logout')
+                                    button(type='button').btn.btn-primary Logout
+                        else
+                            a.text-right(href='/login')
+                                button(type='button').btn.btn-primary Login
+                div.p-2
+                    a(href='/')
+                        button(type='button').btn.btn-primary Home
         form(action='/signup', method='post')
             p.mb-3.mt-3
                 label.form-label(for='username') Username
@@ -28,8 +43,7 @@ block content
 
             p.mb-3.mt-3
                 button.btn.btn-primary(type='submit') Signup
+                a(href='/login')
+                    button.btn.btn-info(type='button') Login Page
             if message
                 p #{message}
-
-        p
-            a(href='/login') Already have an account?  Login!
