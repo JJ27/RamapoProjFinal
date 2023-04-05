@@ -2,31 +2,34 @@ extends layout.pug
 
 block content
     h1 Signup
-    form(action='/signup', method='post')
-        p
-            input(type='text', placeholder='Username', name='username')
+    .container.mt-3.bg-light
+        form(action='/signup', method='post')
+            p.mb-3.mt-3
+                label.form-label(for='username') Username
+                br
+                input.form-control(type='text', placeholder='Username', name='username')
+
+            p.mb-3.mt-3
+                label.form-label(for='password') Password
+                br
+                input.form-control(type='password', name='password', placeholder='Password')
+            p.mb-3.mt-3
+                label.form-label(for='password2') Confirm Password
+                br
+                input.form-control(type='password', name='password2', placeholder='Confirm Password')
+            p.mb-3.mt-3
+                label.form-label(for='fname') First Name
+                br
+                input.form-control(type='text', name='fname', placeholder='First Name')
+            p.mb-3.mt-3
+                label.form-label(for='lname') Last Name
+                br
+                input.form-control(type='text', name='lname', placeholder='Last Name')
+
+            p.mb-3.mt-3
+                button.btn.btn-primary(type='submit') Signup
+            if message
+                p #{message}
 
         p
-            label(for='password') Password
-            br
-            input(type='password', name='password', placeholder='Password')
-        p
-            label(for='password2') Confirm Password
-            br
-            input(type='password', name='password2', placeholder='Confirm Password')
-        p
-            label(for='fname') First Name
-            br
-            input(type='text', name='fname', placeholder='First Name')
-        p
-            label(for='lname') Last Name
-            br
-            input(type='text', name='lname', placeholder='Last Name')
-
-        p
-            button(type='submit') Signup
-        if message
-            p #{message}
-
-    p
-        a(href='/login') Already have an account?  Login!
+            a(href='/login') Already have an account?  Login!
