@@ -72,14 +72,6 @@ class ContactDB {
         return id;
     }
 
-    async findGame(id, userId) {
-        const games = await this.db.read('Game', [{ column: 'id', value: id }, { column: 'userId', value: userId }]);
-        if (games.length > 0) return games[0];
-        else {
-            return undefined;
-        }
-    }
-
     async findUserByUsername(username) {
         const us = await this.db.read('Users', [{ column: 'username', value: username }]);
         if (us.length > 0) return us[0];
@@ -130,36 +122,9 @@ class ContactDB {
         );
     }
 
-    async recordGuess(game, guess) {
-        await this.db.update('Game',
-            [{ column: 'num_guesses', value: (game.num_guesses + 1) }],
-            [{ column: 'id', value: game.id }]
-        );
-
-        await this.db.create('Guess',
-            [
-                { column: 'gameId', value: game.id },
-                { column: 'time', value: new Date() },
-                { column: 'value', value: guess }
-            ]
-        );
-    }
-
-    async complete(game) {
-        await this.db.update('Game',
-            [{ column: 'complete', value: true }],
-            [{ column: 'id', value: game.id }]
-        );
-    }
-
     async findContacts() {
         const c = await this.db.read('Contacts', []);
         return c;
-    }
-
-    async findGuesses(gameId) {
-        const game_guesses = await this.db.read('Guess', [{ column: 'gameId', value: gameId }]);
-        return game_guesses;
     }
 }
 
