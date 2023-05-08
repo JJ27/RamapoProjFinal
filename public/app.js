@@ -8,13 +8,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-const contacts = "#{jsonContacts}";
-for (const contact of contacts) {
-    console.log(contact.nameprefix);
-    if (contact.latitude !== '0' && contact.longitude !== '0') {
-        L.marker(contact.latitude, contact.longitude)
-            .addTo(map)
-            .bindPopup(contact.nameprefix + " " + contact.fname + " " + contact.lname + "<br>" + contact.street + "<br>" + contact.city + ", " + contact.state + " " + contact.zip)
-            .openPopup();
+const addMarkers = async () => {
+    const response = await axios.get('/contacts');
+    if (response && response.data && response.data.contacts) {
+        for (const contact of response.data.contacts) {
+            if (contact.latitude !== '0' && contact.longitude !== '0') {
+                L.marker([contact.latitude, contact.longitude])
+                    .addTo(map)
+                    .bindPopup(contact.nameprefix + " " + contact.fname + " " + contact.lname + "<br>" + contact.street + "<br>" + contact.city + ", " + contact.state + " " + contact.zip)
+                    .openPopup();
+            }
+        }
     }
 }

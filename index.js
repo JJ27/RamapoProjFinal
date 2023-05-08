@@ -41,6 +41,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use('/', require('./routes/accounts'));
 app.use('/', require('./routes/main'));
+app.use('/contacts', require('./routes/extras'));
 
 app.listen(8080, () => {
     console.log('Server running on port 8080')
