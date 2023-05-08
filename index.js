@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const Database = require('./contactwrap');
 const db = new Database();
@@ -36,7 +37,8 @@ app.use((req, res, next) => {
 
 
 app.set('view engine', 'pug');
-//TODO: Update below express uses to work with the new routes
+app.use(express.static('public'));
+app.use(bodyParser.json());
 app.use('/', require('./routes/accounts'));
 app.use('/', require('./routes/main'));
 

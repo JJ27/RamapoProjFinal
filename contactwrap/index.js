@@ -12,8 +12,11 @@ class ContactDB {
 
         await this.db.schema('Contacts', [
             { name: 'id', type: 'INTEGER' },
+            { name: 'nameprefix', type: 'TEXT' },
             { name: 'fname', type: 'TEXT' },
             { name: 'lname', type: 'TEXT' },
+            { name: 'latitude', type: 'TEXT' },
+            { name: 'longitude', type: 'TEXT' },
             { name: 'phone', type: 'TEXT' },
             { name: 'email', type: 'TEXT' },
             { name: 'street', type: 'TEXT' },
@@ -40,14 +43,14 @@ class ContactDB {
             this.createUser('cmps369', hash, 'Scott', 'Frees');
         }
     }
-
-    //TODO: Update below functions to work with the new schema
-
     //add createContact function
-    async createContact(fname, lname, phone, email, street, city, state, zip, country, contact_email, contact_phone, contact_mail) {
+    async createContact(nameprefix, fname, lname, latitude, longitude, phone, email, street, city,state,zip,country, contact_email, contact_phone, contact_mail) {
         const id = await this.db.create('Contacts', [
+            { column: 'nameprefix', value: nameprefix },
             { column: 'fname', value: fname },
             { column: 'lname', value: lname },
+            { column: 'latitude', value: latitude },
+            { column: 'longitude', value: longitude },
             { column: 'phone', value: phone },
             { column: 'email', value: email },
             { column: 'street', value: street },
@@ -102,11 +105,14 @@ class ContactDB {
     }
 
     //updateContact function
-    async updateContact(id, fname, lname, phone, email, street, city, state, zip, country, contact_email, contact_phone, contact_mail) {
+    async updateContact(id, nameprefix, fname, lname, latitude, longitude, phone, email, street, city,state,zip,country, contact_email, contact_phone, contact_mail) {
         await this.db.update('Contacts',
             [
+                { column: 'nameprefix', value: prefix },
                 { column: 'fname', value: fname },
                 { column: 'lname', value: lname },
+                { column: 'latitude', value: latitude },
+                { column: 'longitude', value: longitude },
                 { column: 'phone', value: phone },
                 { column: 'email', value: email },
                 { column: 'street', value: street },

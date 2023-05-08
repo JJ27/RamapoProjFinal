@@ -1,6 +1,19 @@
 extends layout.pug
 
 block content
+    style(type="text/css").
+        #map-container {
+            position: relative;
+            height: 700px;
+            margin-bottom: 5rem;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
     .container.mt-3
         div.row
             h1.col Contact List
@@ -32,7 +45,7 @@ block content
                             each contact in contacts
                                 tr
                                     td
-                                        a(href=contact.id) #{contact.fname} #{contact.lname}
+                                        a(href=contact.id+"/info") #{contact.nameprefix} #{contact.fname} #{contact.lname}
                                     td #{contact.phone}
                                     td #{contact.email}
                                     td: span #{contact.street}
@@ -59,3 +72,8 @@ block content
                 br
                 a(href='/create')
                     button(type='button').btn.btn-success New Contact
+                br
+                br
+                div(id="map-container")
+                    div(id="map")
+                script(src="app.js")

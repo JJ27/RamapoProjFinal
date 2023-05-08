@@ -22,6 +22,14 @@ block content
             fieldset.sb
                 legend.sb Contact Information
                 p.mb-3.mt-3
+                    label.form-label(for='prefix') Prefix}:
+                    select.form-select(name='prefix', value=contact.prefix)
+                        option(disabled selected) --
+                        option(value='Mr.') Mr.
+                        option(value='Mrs.') Mrs.
+                        option(value='Ms.') Ms.
+                        option(value='Dr.') Dr.
+                p.mb-3.mt-3
                     label.form-label(for='fname') First Name:
                     input.form-control(type='text', value=contact.fname, name='fname')
                 p.mb-3.mt-3
