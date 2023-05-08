@@ -8,6 +8,43 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+const fnameInput = document.getElementById('fsearch');
+const lnameInput = document.getElementById('lsearch');
+const contactrows = document.getElementsByClassName('contact-rows');
+fnameInput.addEventListener('keyup', function(e) {
+    const {value} = e.target;
+    const query = value.toLowerCase();
+    for (const row of contactrows) {
+        let name = row.textContent.trim().split(" ")[1].toLowerCase();
+        // compare current name to search input
+        if (name.includes(query)) {
+            // found name matching search, display it
+            row.style.display = "table-row-group";
+        } else {
+            // no match, don't display name
+            row.style.display = "none";
+        }
+    }
+});
+
+lnameInput.addEventListener('keyup', function(e) {
+    const {value} = e.target;
+    const query = value.toLowerCase();
+    for (const row of contactrows) {
+        let name = row.textContent.trim().split(" ")[2].toLowerCase();
+        // compare current name to search input
+        if (name.includes(query)) {
+            // found name matching search, display it
+            row.style.display = "table-row-group";
+        } else {
+            // no match, don't display name
+            row.style.display = "none";
+        }
+    }
+});
+
+
 const addMarkers = async () => {
     const response = await axios.get('/contacts');
     if (response && response.data && response.data.contacts) {

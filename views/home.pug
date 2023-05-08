@@ -7,7 +7,9 @@ block content
             height: 700px;
             margin-bottom: 5rem;
         }
-
+        tr {
+            width: 100% !important;
+        }
         #map {
             position: absolute;
             top: 0;
@@ -33,6 +35,10 @@ block content
                         button(type='button').btn.btn-primary Home
             .container
                 div
+                    //make first and last name live search bars
+                    input(type='text', name='fsearch', placeholder='First Name', id='fsearch')
+                    input(type='text', name='lsearch', placeholder='Last Name', id='lsearch')
+                div
                     table.table.table-striped.table-hover.table-responsive
                         thead
                             tr
@@ -43,7 +49,7 @@ block content
                                 th Contact
                         tbody
                             each contact in contacts
-                                tr(onclick="on_row_click(" + contact.latitude + "," + contact.longitude + ")")
+                                tr(onclick="on_row_click(" + contact.latitude + "," + contact.longitude + ")", class='contact-rows')
                                     td
                                         a(href=contact.id+"/info") #{contact.nameprefix} #{contact.fname} #{contact.lname}
                                     td #{contact.phone}
