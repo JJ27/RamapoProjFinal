@@ -22,13 +22,25 @@ block content
             fieldset.sb
                 legend.sb Contact Information
                 p.mb-3.mt-3
-                    label.form-label(for='prefix') Prefix}:
-                    select.form-select(name='prefix', value=contact.prefix)
-                        option(disabled selected) --
-                        option(value='Mr.') Mr.
-                        option(value='Mrs.') Mrs.
-                        option(value='Ms.') Ms.
-                        option(value='Dr.') Dr.
+                    label.form-label(for='prefix') Prefix:
+                    select.form-select(name='prefixselector', value=contact.nameprefix)
+                        option(disabled) --
+                        if(contact.nameprefix == 'Mr.')
+                            option(value='Mr.' selected) Mr.
+                        else
+                            option(value='Mr.') Mr.
+                        if(contact.nameprefix == 'Mrs.')
+                            option(value='Mrs.' selected) Mrs.
+                        else
+                            option(value='Mrs.') Mrs.
+                        if(contact.nameprefix == 'Ms.')
+                            option(value='Ms.' selected) Ms.
+                        else
+                            option(value='Ms.') Ms.
+                        if(contact.nameprefix == 'Dr.')
+                            option(value='Dr.' selected) Dr.
+                        else
+                            option(value='Dr.') Dr.
                 p.mb-3.mt-3
                     label.form-label(for='fname') First Name:
                     input.form-control(type='text', value=contact.fname, name='fname')

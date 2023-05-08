@@ -98,7 +98,7 @@ router.post('/:contactId/edit', logged_in_only, async (req, res) => {
         const id = await req.db.updateContact(req.params.contactId, nameprefix, fname, lname, String(result[0].latitude), String(result[0].longitude), phone, email, street, city,state,zip,country, contact_by_email, contact_by_phone, contact_by_mail);
     }
     //await req.db.updateContact(req.params.contactId, prefix, fname, lname, latitude, longitude, phone, email, street, city, state, zip, country, contact_by_email, contact_by_phone, contact_by_mail);
-    res.redirect('../'+req.params.contactId);
+    res.redirect('../');
 });
 
 module.exports = router;

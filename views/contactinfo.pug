@@ -20,7 +20,7 @@ block content
                         button(type='button').btn.btn-primary Home
         br
         br
-        h2 #{contact.fname} #{contact.lname}
+        h2 #{contact.nameprefix} #{contact.fname} #{contact.lname}
         hr
         p
             span
@@ -63,9 +63,20 @@ block content
                 span
                     em May NOT be contacted by mail
         hr
-        a(href="../" + contact.id+"/edit")
-            button(type='button').btn.btn-info Edit Contact
-        a(href="../" + contact.id+"/delete")
-            button(type='button').btn.btn-danger Delete Contact
+        if user
+            a(href="../" + contact.id+"/edit")
+                button(type='button').btn.btn-info Edit Contact
+            a(href="../" + contact.id+"/delete")
+                button(type='button').btn.btn-danger Delete Contact
+        else
+            p
+                span
+                    <strong>Account Required to Edit Contact</strong>
+            p.mb-3.mt-3
+                a(href='/login')
+                    button(type='button').btn.btn-success Login
+                a(href='/signup')
+                    button.btn.btn-info(type='button') Signup
+            hr
         a(href="/")
             button(type='button').btn.btn-primary Back to List

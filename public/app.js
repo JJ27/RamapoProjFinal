@@ -13,11 +13,27 @@ const addMarkers = async () => {
     if (response && response.data && response.data.contacts) {
         for (const contact of response.data.contacts) {
             if (contact.latitude !== '0' && contact.longitude !== '0') {
+                //get row from table
+                //const tr = document.querySelector(`tr[data-id="${contact.id}"]`);
                 L.marker([contact.latitude, contact.longitude])
                     .addTo(map)
                     .bindPopup(contact.nameprefix + " " + contact.fname + " " + contact.lname + "<br>" + contact.street + "<br>" + contact.city + ", " + contact.state + " " + contact.zip)
                     .openPopup();
             }
         }
+    }
+}
+
+const on_row_click = (latitude, longitude) => {
+    /*let row = e.target;
+    if (e.target.tagName.toUpperCase() === 'TD') {
+        row = e.target.parentNode;
+    }*/
+    //const latitude = row.dataset.latitude;
+    //const longitude = row.dataset.longitude;
+    if(latitude === '0' || longitude === '0') {
+        alert("No coordinates for this place");
+    } else{
+        mapglobal.flyTo(new L.LatLng(latitude, longitude));
     }
 }

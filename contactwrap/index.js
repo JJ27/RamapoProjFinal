@@ -108,7 +108,7 @@ class ContactDB {
     async updateContact(id, nameprefix, fname, lname, latitude, longitude, phone, email, street, city,state,zip,country, contact_email, contact_phone, contact_mail) {
         await this.db.update('Contacts',
             [
-                { column: 'nameprefix', value: prefix },
+                { column: 'nameprefix', value: nameprefix },
                 { column: 'fname', value: fname },
                 { column: 'lname', value: lname },
                 { column: 'latitude', value: latitude },
