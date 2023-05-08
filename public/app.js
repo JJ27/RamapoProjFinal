@@ -34,6 +34,6 @@ const on_row_click = (latitude, longitude) => {
     if(latitude === '0' || longitude === '0') {
         alert("No coordinates for this place");
     } else{
-        mapglobal.flyTo(new L.LatLng(latitude, longitude));
+        map.flyTo(new L.LatLng(latitude, longitude));
     }
 }

@@ -43,7 +43,7 @@ block content
                                 th Contact
                         tbody
                             each contact in contacts
-                                tr(onclick="on_row_click('#{contact.latitude}','#{contact.longitude}')")
+                                tr(onclick="on_row_click(" + contact.latitude + "," + contact.longitude + ")")
                                     td
                                         a(href=contact.id+"/info") #{contact.nameprefix} #{contact.fname} #{contact.lname}
                                     td #{contact.phone}
