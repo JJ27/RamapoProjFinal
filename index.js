@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.locals.pretty = true;
 
 app.use((req, res, next) => {
-    console.log("Adding DB to request");
     req.db = db;
     next();
 })

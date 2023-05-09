@@ -34,6 +34,8 @@ block content
                     a(href='/')
                         button(type='button').btn.btn-primary Home
             .container
+                p.
+                    Click on a row to fly to the contact's location on the map. Coordinates are not available for contacts in italics.
                 div
                     //make first and last name live search bars
                     input(type='text', name='fsearch', placeholder='First Name', id='fsearch')
@@ -54,9 +56,15 @@ block content
                                         a(href=contact.id+"/info") #{contact.nameprefix} #{contact.fname} #{contact.lname}
                                     td #{contact.phone}
                                     td #{contact.email}
-                                    td: span #{contact.street}
-                                        br
-                                        span #{contact.city} #{contact.state} #{contact.zip}
+                                    //check if latitude is 0
+                                    if contact.latitude == 0
+                                        td: i #{contact.street}
+                                            br
+                                            i #{contact.city} #{contact.state} #{contact.zip}
+                                    else
+                                        td: span #{contact.street}
+                                            br
+                                            span #{contact.city} #{contact.state} #{contact.zip}
                                     td: form
                                         if contact.contact_phone == 1
                                             input(type="checkbox", name="Phone", value=contact.contact_phone, checked="true", disabled="true")

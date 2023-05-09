@@ -1,4 +1,3 @@
-console.log("Map Running");
 var container = L.DomUtil.get('map');
 if(container != null){
     container._leaflet_id = null;
@@ -62,13 +61,7 @@ const addMarkers = async () => {
 }
 
 const on_row_click = (latitude, longitude) => {
-    /*let row = e.target;
-    if (e.target.tagName.toUpperCase() === 'TD') {
-        row = e.target.parentNode;
-    }*/
-    //const latitude = row.dataset.latitude;
-    //const longitude = row.dataset.longitude;
-    if(latitude === '0' || longitude === '0') {
+    if(String(latitude) === '0' || String(longitude) === '0') {
         alert("No coordinates for this place");
     } else{
         map.flyTo(new L.LatLng(latitude, longitude));
