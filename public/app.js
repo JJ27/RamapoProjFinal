@@ -20,7 +20,7 @@ fnameInput.addEventListener('keyup', function(e) {
         // compare current name to search input
         if (name.includes(query)) {
             // found name matching search, display it
-            row.style.display = "table-row-group";
+            row.style.removeProperty('display');
         } else {
             // no match, don't display name
             row.style.display = "none";
@@ -36,7 +36,7 @@ lnameInput.addEventListener('keyup', function(e) {
         // compare current name to search input
         if (name.includes(query)) {
             // found name matching search, display it
-            row.style.display = "table-row-group";
+            row.style.removeProperty('display');
         } else {
             // no match, don't display name
             row.style.display = "none";
